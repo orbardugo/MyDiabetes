@@ -17,7 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements Fragment1.OnFragmentInteractionListener, NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
         Fragment fragment = null;
         if (id == R.id.nav_chart) {
-            fragment.getActivity();
+            fragment = new Fragment1();
         } else if (id == R.id.nav_planner) {
 
         } else if (id == R.id.nav_map) {
@@ -97,11 +97,17 @@ public class MainActivity extends AppCompatActivity
         }
         if (fragment != null) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.drawer_layout, fragment);
+            ft.replace(R.id.mainFrame, fragment);
             ft.commit();
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onFragmentInteraction(String title) {
+        // NOTE:  Code to replace the toolbar title based current visible fragment
+        getSupportActionBar().setTitle(title);
     }
 }
