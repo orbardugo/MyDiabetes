@@ -5,6 +5,10 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_glucometer"
+            android:icon="@drawable/ic_glucometer"
+            android:title="Add Measurement" />
+        <item
             android:id="@+id/nav_chart"
             android:icon="@drawable/ic_chart"
             android:title="Average" />
@@ -17,19 +21,20 @@
             android:icon="@drawable/ic_map"
             android:title="Near places" />
 
+        <item android:title="">
+            <menu>
+                <group android:checkableBehavior="single">
+                    <item
+                        android:id="@+id/nav_settings"
+                        android:icon="@drawable/ic_settings"
+                        android:title="Settings" />
+                    <item
+                        android:id="@+id/nav_help"
+                        android:icon="@drawable/ic_help"
+                        android:title="Help" />
+                </group>
+            </menu>
+        </item>
+
     </group>
-
-    <item android:title="">
-        <menu>
-            <item
-                android:id="@+id/nav_settings"
-                android:icon="@drawable/ic_settings"
-                android:title="Settings" />
-            <item
-                android:id="@+id/nav_help"
-                android:icon="@drawable/ic_help"
-                android:title="Help" />
-        </menu>
-    </item>
-
 </menu>

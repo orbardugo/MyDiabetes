@@ -17,11 +17,11 @@
             android:layout_height="109dp"
             android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"
+            android:inputType="number"
             android:background="@android:drawable/editbox_dropdown_light_frame"
             android:ems="10"
             android:gravity="center"
             android:hint="Glucose level"
-            android:inputType="textPersonName"
             android:textAlignment="center"
             android:textSize="36sp"
             app:layout_constraintBottom_toTopOf="@+id/txtCarbs"
@@ -37,7 +37,7 @@
             android:layout_marginBottom="60dp"
             android:ems="10"
             android:hint="Carbs (optional)"
-            android:inputType="textPersonName"
+            android:inputType="number"
             app:layout_constraintBottom_toTopOf="@+id/txtInsulin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -50,7 +50,7 @@
             android:layout_marginBottom="204dp"
             android:ems="10"
             android:hint="Insulin (optional)"
-            android:inputType="textPersonName"
+            android:inputType="number"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -93,6 +93,8 @@
             app:layout_constraintEnd_toStartOf="@+id/txtInsulin"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent" />
+
+
 
     </android.support.constraint.ConstraintLayout>
 

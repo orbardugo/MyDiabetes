@@ -7,12 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class Fragment1 extends Fragment {
+public class AddFragment extends Fragment {
 
     // NOTE: Removed Some unwanted Boiler Plate Codes
     private OnFragmentInteractionListener mListener;
 
-    public Fragment1() {}
+    public AddFragment() {}
 
 
     @Override
@@ -23,12 +23,12 @@ public class Fragment1 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
 
-        View view= inflater.inflate(R.layout.fragment_fragment1, container, false);
+        View view= inflater.inflate(R.layout.fragment_add, container, false);
 
         // NOTE : We are calling the onFragmentInteraction() declared in the MainActivity
         // ie we are sending "Fragment 1" as title parameter when fragment1 is activated
         if (mListener != null) {
-            mListener.onFragmentInteraction("Fragment 1");
+            mListener.onFragmentInteraction("ADD MEASUREMENT");
         }
 
         // Here we will can create click listners etc for all the gui elements on the fragment.

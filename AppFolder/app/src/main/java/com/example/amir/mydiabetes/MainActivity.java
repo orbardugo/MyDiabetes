@@ -13,11 +13,13 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity
-        implements Fragment1.OnFragmentInteractionListener, NavigationView.OnNavigationItemSelectedListener {
+        implements
+        AddFragment.OnFragmentInteractionListener,
+        SettingsFragment.OnFragmentInteractionListener,
+        NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +45,16 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        // Defualt fragment
+        Fragment fragment = null;
+        fragment = new SettingsFragment();
+        if (fragment != null) {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.mainFrame, fragment);
+            ft.commit();
+        }
+        drawer.closeDrawer(GravityCompat.START);
     }
 
     @Override
@@ -84,14 +96,16 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         Fragment fragment = null;
-        if (id == R.id.nav_chart) {
-            fragment = new Fragment1();
+        if (id == R.id.nav_glucometer) {
+            fragment = new AddFragment();
+        } else if (id == R.id.nav_planner) {
+
         } else if (id == R.id.nav_planner) {
 
         } else if (id == R.id.nav_map) {
 
         } else if (id == R.id.nav_settings) {
-
+            fragment = new SettingsFragment();
         } else if (id == R.id.nav_help) {
 
         }
