@@ -2,7 +2,8 @@ package com.example.amir.mydiabetes;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+//import android.support.v4.app.Fragment;
+import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,9 +28,7 @@ public class AddFragment extends Fragment {
 
         // NOTE : We are calling the onFragmentInteraction() declared in the MainActivity
         // ie we are sending "Fragment 1" as title parameter when fragment1 is activated
-        if (mListener != null) {
-            mListener.onFragmentInteraction("ADD MEASUREMENT");
-        }
+
 
         // Here we will can create click listners etc for all the gui elements on the fragment.
         // For eg: Button btn1= (Button) view.findViewById(R.id.frag1_btn1);
