@@ -19,7 +19,7 @@ import android.view.MenuItem;
 public class MainActivity extends AppCompatActivity
         implements
         AddFragment.OnFragmentInteractionListener,
-        SettingsFragment.OnFragmentInteractionListener,
+        CalendarFragment.OnFragmentInteractionListener,
         NavigationView.OnNavigationItemSelectedListener {
 
     @Override
@@ -66,10 +66,8 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_glucometer) {
             fragment = new AddFragment();
         } else if (id == R.id.nav_planner) {
-
-        } else if (id == R.id.nav_planner) {
-
-        } else if (id == R.id.nav_map) {
+            fragment = new CalendarFragment();
+        }  else if (id == R.id.nav_map) {
 
         } else if (id == R.id.nav_settings) {
             fragment = (PrefsFragment)new PrefsFragment();

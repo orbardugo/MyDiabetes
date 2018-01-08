@@ -1,17 +1,31 @@
 package com.example.amir.mydiabetes;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 //import android.support.v4.app.Fragment;
 import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
-public class AddFragment extends Fragment {
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
+public class AddFragment extends Fragment implements View.OnClickListener{
 
     // NOTE: Removed Some unwanted Boiler Plate Codes
     private OnFragmentInteractionListener mListener;
+    private Context mContext;
+    AssignmentsDbHelper dbHelper;
+    SQLiteDatabase db;
+    EditText inputGluc , inputIns , inputCarbs;
+    Button submitBtn;
 
     public AddFragment() {}
 
@@ -25,7 +39,11 @@ public class AddFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
 
         View view= inflater.inflate(R.layout.fragment_add, container, false);
-
+        inputGluc = view.findViewById(R.id.txtGlucose);
+        inputIns = view.findViewById(R.id.txtInsulin);
+        inputCarbs = view.findViewById(R.id.txtCarbs);
+        submitBtn = view.findViewById(R.id.btnSubmit);
+        submitBtn.setOnClickListener(this);
         // NOTE : We are calling the onFragmentInteraction() declared in the MainActivity
         // ie we are sending "Fragment 1" as title parameter when fragment1 is activated
 
@@ -54,6 +72,26 @@ public class AddFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onClick(View v) {
+        mContext = this.getActivity();
+        dbHelper = new AssignmentsDbHelper(mContext);
+        db = dbHelper.getWritableDatabase();
+
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        String date = df.format(Calendar.getInstance().getTime());
+        ContentValues values = new ContentValues();
+
+        values.put(Constants.diabetesTable.GLUCOSE,""+inputGluc.getText());
+        values.put(Constants.diabetesTable.INSULIN,""+inputIns.getText());
+        values.put(Constants.diabetesTable.CARBO,""+inputCarbs.getText());
+        values.put(Constants.diabetesTable.DATE, date);
+
+        long id;
+        id = db.insert(Constants.diabetesTable.TABLE_NAME,null,values);
+        db.close();
     }
 
 
