@@ -45,6 +45,7 @@ public class CalendarFragment extends Fragment {
         mContext = this.getActivity();
         View view = inflater.inflate(R.layout.fragment_calendar, container, false);
         myRecyclerView = view.findViewById(R.id.recyclerView);
+        myRecyclerView.addItemDecoration(new SimpleDividerItemDecoration(mContext));
         dbHelper = new AssignmentsDbHelper(mContext);
         db = dbHelper.getReadableDatabase();
         String [] projection = {Constants.diabetesTable.GLUCOSE ,Constants.diabetesTable.INSULIN,

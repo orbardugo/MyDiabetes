@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
@@ -41,8 +42,8 @@ public class MyCustomAdapter extends RecyclerView.Adapter<MyCustomAdapter.MyView
         mData.moveToPosition(position);
 
         holder.rowGluc.setText(mData.getString(0));
-        holder.rowIns.setText(mData.getString(1));
-        holder.rowCarbs.setText(mData.getString(2));
+        holder.rowIns.setText("Ins:"+ mData.getString(1));
+        holder.rowCarbs.setText("Carbs"+ mData.getString(2));
         holder.rowDate.setText(mData.getString(3));
     }
 
@@ -56,7 +57,7 @@ public class MyCustomAdapter extends RecyclerView.Adapter<MyCustomAdapter.MyView
         TextView rowIns;
         TextView rowCarbs;
         TextView rowDate;
-        LinearLayout layout;
+        RelativeLayout layout;
         SQLiteDatabase db;
         AssignmentsDbHelper dbHelper;
 
