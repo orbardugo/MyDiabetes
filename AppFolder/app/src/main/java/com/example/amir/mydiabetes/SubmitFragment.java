@@ -41,7 +41,7 @@ public class SubmitFragment extends Fragment {
                     "* 6 ounces of regular soda\n" +
                     "* 1 tablespoon of honey\n" +
                     "* 1 tablespoon of table sugar";
-        if(gluc>=250)
+        else if(gluc>=250)
             res = "Your Blood Sugar Level "+gluc+" is high!\n" +
                     "We'll recommend to take insulin injection and  Drink lots of water\n" +
                     "If your glucose level does not go down, contact your doctor and consider a hospital evacuation.";
