@@ -1,5 +1,6 @@
 package com.example.amir.mydiabetes;
 
+import android.app.FragmentTransaction;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -92,6 +93,16 @@ public class AddFragment extends Fragment implements View.OnClickListener{
         long id;
         id = db.insert(Constants.diabetesTable.TABLE_NAME,null,values);
         db.close();
+        Bundle bundle = new Bundle();
+        bundle.putString("glucose",""+inputGluc.getText());
+        bundle.putString("carbo",""+inputCarbs.getText());
+        bundle.putString("insulin",""+inputIns.getText());
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        Fragment submitFragment = new SubmitFragment();
+        submitFragment.setArguments(bundle);
+        transaction.replace(R.id.mainFrame, submitFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
 

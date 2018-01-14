@@ -16,14 +16,14 @@
             android:layout_width="237dp"
             android:layout_height="113dp"
             android:text="gluc"
-            app:layout_constraintBottom_toTopOf="@+id/button"
+            app:layout_constraintBottom_toTopOf="@+id/smsBtn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.503"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/smsBtn"
             android:layout_width="116dp"
             android:layout_height="81dp"
             android:background="@mipmap/ic_launcher_foreground"
