@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
-    android:layout_width="match_parent">
-
+    android:layout_width="match_parent"
+    android:key="general_settings">
+    <PreferenceCategory android:title="Please fill the following details:"/>
     <EditTextPreference
         android:defaultValue="Enter your name"
         android:key="txt_name"
@@ -11,7 +12,7 @@
         android:title="Name:" />
     <EditTextPreference
         android:defaultValue="Enter your email address"
-        android:key="edit_text_preference_1"
+        android:key="edit_text_email"
         android:selectAllOnFocus="true"
         android:singleLine="true"
         android:title="Email:" />

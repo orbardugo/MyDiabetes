@@ -43,7 +43,7 @@ public class MyCustomAdapter extends RecyclerView.Adapter<MyCustomAdapter.MyView
 
         holder.rowGluc.setText(mData.getString(0));
         holder.rowIns.setText("Ins:"+ mData.getString(1));
-        holder.rowCarbs.setText("Carbs"+ mData.getString(2));
+        holder.rowCarbs.setText("Carbs:"+ mData.getString(2));
         holder.rowDate.setText(mData.getString(3));
     }
 

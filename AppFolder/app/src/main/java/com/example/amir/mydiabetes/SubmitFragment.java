@@ -31,7 +31,23 @@ public class SubmitFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_submit, container, false);
         result = view.findViewById(R.id.sugarLvlTxt);
         smsBtn = view.findViewById(R.id.smsBtn);
-        String res = "your gluc is: "+ getArguments().getString("glucose");
+        int gluc = getArguments().getInt("glucose");
+        String res = null;
+        if(gluc<=70)
+            res = "Your Blood Sugar Level "+gluc+" is low!\n You should eat or drink something to raise it. \n" +
+                    "We'll recommend one of the following:\n" +
+                    "* 3 – 4 glucose tablets or gels\n" +
+                    "* 4 ounces of fruit juice\n" +
+                    "* 6 ounces of regular soda\n" +
+                    "* 1 tablespoon of honey\n" +
+                    "* 1 tablespoon of table sugar";
+        if(gluc>=250)
+            res = "Your Blood Sugar Level "+gluc+" is high!\n" +
+                    "We'll recommend to take insulin injection and  Drink lots of water\n" +
+                    "If your glucose level does not go down, contact your doctor and consider a hospital evacuation.";
+
+        else
+            res="Your Blood Sugar Level "+gluc+" is good!";
         result.setText(res);
         return view;
     }

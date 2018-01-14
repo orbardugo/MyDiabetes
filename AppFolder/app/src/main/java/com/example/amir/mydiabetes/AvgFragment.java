@@ -30,6 +30,7 @@ public class AvgFragment extends Fragment implements View.OnTouchListener {
     AssignmentsDbHelper dbHelper;
     SQLiteDatabase db;
     int sum,count,avg,range;
+    Cursor c;
     public AvgFragment() {
         // Required empty public constructor
     }
@@ -43,15 +44,10 @@ public class AvgFragment extends Fragment implements View.OnTouchListener {
         View view= inflater.inflate(R.layout.fragment_avg, container, false);
         txtAvg = view.findViewById(R.id.textAvg);
         txtRange = view.findViewById(R.id.rangeTxt);
-        leftBtn = view.findViewById(R.id.leftBtn);
-        rightBtn = view.findViewById(R.id.rightBtn);
-
-
 
         dbHelper = new AssignmentsDbHelper(mContext);
         db = dbHelper.getReadableDatabase();
         String [] projection = {Constants.diabetesTable.GLUCOSE , Constants.diabetesTable.DATE };
-        Cursor c;
 
         c = db.query( //sort by ASU
                 Constants.diabetesTable.TABLE_NAME,  // The table to query
@@ -62,12 +58,48 @@ public class AvgFragment extends Fragment implements View.OnTouchListener {
                 null,                // filter by row groups
                 null);             // The sort order
 
-        sum=0;count=0;avg=0;range=0;
+        range=0;
+        setAvg();
+
+        view.setOnTouchListener(new OnSwipeTouchListener(mContext) {
+            @Override
+            public void onSwipeLeft() {
+                range++;
+                if(range==4)
+                    range=0;
+                avg=sum/count;
+                txtAvg.setText("Average: "+avg+" Range:"+range);
+                setAvg();
+            }
+            public void onSwipeRight(){
+                range--;
+                if(range==-1)
+                    range=3;
+                avg=sum/count;
+                txtAvg.setText("Average: "+avg+" Range:"+range);
+                setAvg();
+            }
+        });
+
+        return view;
+    }
+
+    public void setAvg(){
+        sum=0;count=0;avg=0;
+
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         String todayStr = df.format(Calendar.getInstance().getTime());
-        Date today=null;
+        Date today = null;
+        Date rangeDate=null;
         try {
             today = df.parse(todayStr);
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(today);
+            if(range==1)
+                calendar.add(Calendar.DAY_OF_YEAR, -7);
+            else if(range==2)        // range = 2
+                calendar.add(Calendar.DAY_OF_YEAR, -30);
+            rangeDate = calendar.getTime();
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -79,10 +111,20 @@ public class AvgFragment extends Fragment implements View.OnTouchListener {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        if (date.equals(today)) {
-            sum += c.getInt(0);
-            count++;
+        if(range==0) {
+            if (date.equals(rangeDate)) {
+                sum += c.getInt(0);
+                count++;
+            }
         }
+        else {
+            if (date.after(rangeDate) || range == 3) {   // range=3 means allways
+                sum += c.getInt(0);
+                count++;
+            }
+        }
+
+
         while(c.moveToNext()) {
             dateStr = c.getString(1);
             date=null;
@@ -91,30 +133,29 @@ public class AvgFragment extends Fragment implements View.OnTouchListener {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            if (date.equals(today)) {
-                sum += c.getInt(0);
-                count++;
+            if(range==0) {
+                if (date.equals(rangeDate)) {
+                    sum += c.getInt(0);
+                    count++;
+                }
+            }
+            else {
+                if (date.after(rangeDate) || range == 3) {   // range=3 means allways
+                    sum += c.getInt(0);
+                    count++;
+                }
             }
         }
-
         avg=sum/count;
-        txtAvg.setText("Average: "+avg);
-
-        view.setOnTouchListener(new OnSwipeTouchListener(mContext) {
-            @Override
-            public void onSwipeLeft() {
-                range--;
-                avg=sum/count;
-                txtAvg.setText("Average: "+avg+" Range:"+range);
-            }
-            public void onSwipeRight(){
-                range++;
-                avg=sum/count;
-                txtAvg.setText("Average: "+avg+" Range:"+range);
-            }
-        });
-
-        return view;
+        txtAvg.setText(""+avg);
+        if(range==0)
+            txtRange.setText("Today");
+        else if(range==1)
+            txtRange.setText("Week");
+        else if(range==2)
+            txtRange.setText("Month");
+        else
+            txtRange.setText("Allways");
     }
 
 

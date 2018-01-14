@@ -41,6 +41,7 @@ public class PrefsFragment extends PreferenceFragment implements SharedPreferenc
         for(int i = 0; i < preferenceScreen.getPreferenceCount(); i++) {
             setSummary(getPreferenceScreen().getPreference(i));
         }
+
     }
 
     @Override

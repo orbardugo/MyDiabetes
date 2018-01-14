@@ -12,20 +12,35 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/sugarLvlTxt"
-            android:layout_width="237dp"
-            android:layout_height="113dp"
-            android:text="gluc"
-            app:layout_constraintBottom_toTopOf="@+id/smsBtn"
+            android:id="@+id/textView3"
+            android:layout_width="317dp"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:text="Submitted to diary"
+            android:textColor="@color/green"
+            android:textSize="25sp"
+            app:layout_constraintBottom_toTopOf="@+id/sugarLvlTxt"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.503"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/sugarLvlTxt"
+            android:layout_width="328dp"
+            android:layout_height="302dp"
+            android:text="gluc"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/smsBtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
         <Button
             android:id="@+id/smsBtn"
-            android:layout_width="116dp"
-            android:layout_height="81dp"
+            android:layout_width="65dp"
+            android:layout_height="64dp"
             android:background="@mipmap/ic_launcher_foreground"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
