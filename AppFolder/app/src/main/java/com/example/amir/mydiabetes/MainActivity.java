@@ -67,8 +67,8 @@ public class MainActivity extends AppCompatActivity
             fragment = new AddFragment();
         } else if (id == R.id.nav_planner) {
             fragment = new CalendarFragment();
-        }  else if (id == R.id.nav_map) {
-
+        }  else if (id == R.id.nav_chart) {
+            fragment = new AvgFragment();
         } else if (id == R.id.nav_settings) {
             fragment = (PrefsFragment)new PrefsFragment();
         } else if (id == R.id.nav_help) {
