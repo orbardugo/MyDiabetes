@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 //import android.support.v4.app.Fragment;
 import android.app.Fragment;
+import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +28,7 @@ public class AddFragment extends Fragment implements View.OnClickListener{
     SQLiteDatabase db;
     EditText inputGluc , inputIns , inputCarbs;
     Button submitBtn;
-
+    Snackbar errorSnackbar;
     public AddFragment() {}
 
 
@@ -45,6 +46,8 @@ public class AddFragment extends Fragment implements View.OnClickListener{
         inputCarbs = view.findViewById(R.id.txtCarbs);
         submitBtn = view.findViewById(R.id.btnSubmit);
         submitBtn.setOnClickListener(this);
+        String stringId  = "Please enter glucose level";
+        errorSnackbar = Snackbar.make(view, stringId,  Snackbar.LENGTH_SHORT);
         // NOTE : We are calling the onFragmentInteraction() declared in the MainActivity
         // ie we are sending "Fragment 1" as title parameter when fragment1 is activated
 
@@ -77,6 +80,10 @@ public class AddFragment extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
+        if(inputGluc.getText().length() == 0) {
+            errorSnackbar.show();
+            return;
+        }
         mContext = this.getActivity();
         dbHelper = new AssignmentsDbHelper(mContext);
         db = dbHelper.getWritableDatabase();
