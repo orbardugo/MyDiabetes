@@ -24,7 +24,7 @@ public class SubmitFragment extends Fragment implements View.OnClickListener {
     SmsManager smsManager;
     String name;
     String phoneNum;
-
+    String lat,lng;
     public SubmitFragment() {
         // Required empty public constructor
     }
@@ -41,6 +41,8 @@ public class SubmitFragment extends Fragment implements View.OnClickListener {
         phoneNum = prefs.getString("edit_text_emergency","");
         smsBtn = view.findViewById(R.id.smsBtn);
         smsBtn.setOnClickListener(this);
+        lat = "31.769524";
+        lng = "35.193667";
         int gluc = getArguments().getInt("glucose");
         String res = null;
         if(gluc<=70)
@@ -67,7 +69,7 @@ public class SubmitFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         smsManager = SmsManager.getDefault();
-        smsManager.sendTextMessage(phoneNum, null, name+"'s blood sugar is very high! glucose:" + getArguments().getInt("glucose") + "" , null, null);
+        smsManager.sendTextMessage(phoneNum, null, name+"'s blood sugar is very high! glucose:" + getArguments().getInt("glucose") + " \nhis location is at: " + "http://maps.google.com/?q="+lat+","+lng , null, null);
 
     }
 }
