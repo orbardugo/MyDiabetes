@@ -33,10 +33,19 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if((ContextCompat.checkSelfPermission(this, android.Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED)&&
+                (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED))
+            requestPermissions(new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.SEND_SMS}, 1);
+
         if(ContextCompat.checkSelfPermission(this, android.Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED)
-            requestPermissions(new String[]{Manifest.permission.SEND_SMS}, 1);
-        else
-            afterPermissionCheck();
+            requestPermissions(new String[]{Manifest.permission.SEND_SMS}, 2);
+
+
+        if(ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+            requestPermissions(new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 2);
+
+        afterPermissionCheck();
     }
     public void afterPermissionCheck()
     {
@@ -117,11 +126,20 @@ public class MainActivity extends AppCompatActivity
     public void onRequestPermissionsResult(int requestCode,String permissions[], int[] grantResults) {
         switch (requestCode) {
             case 1: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                    afterPermissionCheck();
+                } else {
+                    Log.e("MainActivity","Permissions was denied");
+                }
+            }
+            case 2: {
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     afterPermissionCheck();
                 } else {
-                    Log.e("MainActivity","Permissions was denied");
+                    Log.e("MainActivity", "Permissions was denied");
                 }
             }
         }
