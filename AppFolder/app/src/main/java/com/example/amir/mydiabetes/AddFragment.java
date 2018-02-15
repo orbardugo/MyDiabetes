@@ -109,7 +109,7 @@ public class AddFragment extends Fragment implements View.OnClickListener{
         Fragment submitFragment = new SubmitFragment();
         submitFragment.setArguments(bundle);
         transaction.replace(R.id.mainFrame, submitFragment);
-        transaction.addToBackStack(null);
+       // transaction.addToBackStack(null);
         transaction.commit();
     }
 
