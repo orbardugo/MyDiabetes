@@ -23,6 +23,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
         implements
@@ -30,9 +31,11 @@ public class MainActivity extends AppCompatActivity
         CalendarFragment.OnFragmentInteractionListener,
         NavigationView.OnNavigationItemSelectedListener {
         TextView userName,userEmail;
+    SharedPreferences prefs;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //request permissions
         if((ContextCompat.checkSelfPermission(this, android.Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED)&&
                 (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED))
             requestPermissions(new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION,
@@ -65,18 +68,19 @@ public class MainActivity extends AppCompatActivity
         View headerView = navigationView.getHeaderView(0);
         userName = headerView.findViewById(R.id.user_name);
         userEmail = headerView.findViewById(R.id.user_email);
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        prefs = PreferenceManager.getDefaultSharedPreferences(this);
         String name = prefs.getString("txt_name", "");
         String email = prefs.getString("edit_text_email", "");
-        if(name!=null)
+        if(userName.getText().equals("Enter your name"))
             userName.setText(""+name);
-        if(email!=null)
+        if(userEmail.getText().equals("edit_text_email"))
             userEmail.setText(""+email);
 
         PrefsFragment fragment = null;
         fragment = (PrefsFragment)new PrefsFragment();
         //getActionBar().setTitle("Preferences");
         if (fragment != null) {
+
             android.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
             ft.replace(R.id.mainFrame, fragment);
             ft.commit();
@@ -95,6 +99,13 @@ public class MainActivity extends AppCompatActivity
 
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
+        String name = prefs.getString("txt_name", "");
+        String email = prefs.getString("edit_text_email", "");
+        if(userName.getText().equals("Enter your name"))
+            userName.setText(""+name);
+        if(userEmail.getText().equals("edit_text_email"))
+            userEmail.setText(""+email);
+
         int id = item.getItemId();
         Fragment fragment = null;
         if (id == R.id.nav_glucometer) {
@@ -109,6 +120,15 @@ public class MainActivity extends AppCompatActivity
 
         }
         if (fragment != null) {
+            prefs = PreferenceManager.getDefaultSharedPreferences(this);
+            String phone = prefs.getString("edit_text_emergency", "");
+            Log.w("name",userName.getText().toString()+"\n");
+            Log.w("phone",phone);
+            if(name.equals("Enter your name") || phone.equals("Enter phone for emergency sms") )
+            {
+                Toast.makeText(this,"Please fill all details",Toast.LENGTH_LONG).show();
+                return false;
+            }
             android.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
             ft.replace(R.id.mainFrame, fragment);
             ft.commit();
