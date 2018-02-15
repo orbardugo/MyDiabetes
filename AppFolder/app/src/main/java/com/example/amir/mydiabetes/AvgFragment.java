@@ -88,7 +88,7 @@ public class AvgFragment extends Fragment implements View.OnTouchListener {
     public void setAvg(){
         sum=0;count=0;avg=0;
 
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
         String todayStr = df.format(Calendar.getInstance().getTime());
         Date today = null;
         Date rangeDate=null;

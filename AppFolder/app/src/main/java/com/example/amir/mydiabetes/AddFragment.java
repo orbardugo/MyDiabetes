@@ -89,7 +89,7 @@ public class AddFragment extends Fragment implements View.OnClickListener{
         dbHelper = new AssignmentsDbHelper(mContext);
         db = dbHelper.getWritableDatabase();
 
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        DateFormat df = new SimpleDateFormat("dd-MM-yyyy 'At' HH:mm");
         String date = df.format(Calendar.getInstance().getTime());
         ContentValues values = new ContentValues();
 
