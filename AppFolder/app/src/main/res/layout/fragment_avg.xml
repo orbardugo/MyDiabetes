@@ -15,7 +15,7 @@
             android:id="@+id/textAvg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="100"
+            android:text="No measurements"
             android:textSize="40sp"
             app:layout_constraintBottom_toTopOf="@+id/rangeTxt"
             app:layout_constraintEnd_toEndOf="parent"

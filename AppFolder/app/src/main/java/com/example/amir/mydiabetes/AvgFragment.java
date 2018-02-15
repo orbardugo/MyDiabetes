@@ -57,7 +57,8 @@ public class AvgFragment extends Fragment implements View.OnTouchListener {
                 null,                //  group the rows
                 null,                // filter by row groups
                 null);             // The sort order
-
+        if(c.getCount()<=0)
+            return view;
         range=0;
         setAvg();
 
@@ -95,9 +96,9 @@ public class AvgFragment extends Fragment implements View.OnTouchListener {
             today = df.parse(todayStr);
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(today);
-            if(range==1)
+            if(range==1)    // week
                 calendar.add(Calendar.DAY_OF_YEAR, -7);
-            else if(range==2)        // range = 2
+            else if(range==2)        // month
                 calendar.add(Calendar.DAY_OF_YEAR, -30);
             rangeDate = calendar.getTime();
         } catch (ParseException e) {
@@ -111,7 +112,7 @@ public class AvgFragment extends Fragment implements View.OnTouchListener {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        if(range==0) {
+        if(range==0) {      // today
             if (date.equals(rangeDate)) {
                 sum += c.getInt(0);
                 count++;
