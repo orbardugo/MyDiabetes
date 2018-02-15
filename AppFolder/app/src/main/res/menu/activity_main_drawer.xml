@@ -16,11 +16,6 @@
             android:id="@+id/nav_planner"
             android:icon="@drawable/ic_planner"
             android:title="Diary" />
-        <item
-            android:id="@+id/nav_map"
-            android:icon="@drawable/ic_map"
-            android:title="Near places" />
-
         <item android:title="">
             <menu>
                 <group android:checkableBehavior="single">
@@ -29,9 +24,9 @@
                         android:icon="@drawable/ic_settings"
                         android:title="Prefrences" />
                     <item
-                        android:id="@+id/nav_help"
+                        android:id="@+id/nav_about"
                         android:icon="@drawable/ic_help"
-                        android:title="Help" />
+                        android:title="About" />
                 </group>
             </menu>
         </item>

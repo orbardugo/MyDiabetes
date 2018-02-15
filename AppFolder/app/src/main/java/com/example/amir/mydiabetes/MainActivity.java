@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity
         implements
         AddFragment.OnFragmentInteractionListener,
         CalendarFragment.OnFragmentInteractionListener,
+        AboutFragment.OnFragmentInteractionListener,
         NavigationView.OnNavigationItemSelectedListener {
         TextView userName,userEmail;
     SharedPreferences prefs;
@@ -71,13 +72,17 @@ public class MainActivity extends AppCompatActivity
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
         String name = prefs.getString("txt_name", "");
         String email = prefs.getString("edit_text_email", "");
+        String phone = prefs.getString("edit_text_emergency", "");
         if(userName.getText().equals("Enter your name"))
             userName.setText(""+name);
         if(userEmail.getText().equals("edit_text_email"))
             userEmail.setText(""+email);
 
-        PrefsFragment fragment = null;
-        fragment = (PrefsFragment)new PrefsFragment();
+        Fragment fragment = null;
+        if(name.equals("") || phone.equals("Enter phone for emergency sms"))
+             fragment = (PrefsFragment)new PrefsFragment();
+        else
+            fragment = new AddFragment();
         //getActionBar().setTitle("Preferences");
         if (fragment != null) {
 
@@ -116,8 +121,8 @@ public class MainActivity extends AppCompatActivity
             fragment = new AvgFragment();
         } else if (id == R.id.nav_settings) {
             fragment = (PrefsFragment)new PrefsFragment();
-        } else if (id == R.id.nav_help) {
-
+        } else if (id == R.id.nav_about) {
+            fragment = new AboutFragment();
         }
         if (fragment != null) {
             prefs = PreferenceManager.getDefaultSharedPreferences(this);
