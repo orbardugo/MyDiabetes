@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity
         String email = prefs.getString("edit_text_email", "");
         if(userName.getText().equals("Enter your name"))
             userName.setText(""+name);
-        if(userEmail.getText().equals("edit_text_email"))
+        if(userEmail.getText().equals("Enter your email address"))
             userEmail.setText(""+email);
 
         int id = item.getItemId();
