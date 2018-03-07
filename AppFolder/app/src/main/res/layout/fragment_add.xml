@@ -15,16 +15,16 @@
             android:id="@+id/txtGlucose"
             android:layout_width="264dp"
             android:layout_height="109dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp"
-            android:inputType="number"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="28dp"
             android:background="@android:drawable/editbox_dropdown_light_frame"
             android:ems="10"
             android:gravity="center"
             android:hint="Glucose level"
+            android:inputType="number"
             android:textAlignment="center"
             android:textSize="36sp"
-            app:layout_constraintBottom_toTopOf="@+id/txtCarbs"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -34,66 +34,92 @@
             android:id="@+id/txtCarbs"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:layout_marginBottom="60dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:ems="10"
             android:hint="Carbs (optional)"
             android:inputType="number"
             app:layout_constraintBottom_toTopOf="@+id/txtInsulin"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/imageView4" />
+            app:layout_constraintStart_toEndOf="@+id/imgCarbs"
+            app:layout_constraintTop_toBottomOf="@+id/txtGlucose" />
 
         <EditText
             android:id="@+id/txtInsulin"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:layout_marginBottom="204dp"
             android:ems="10"
             android:hint="Insulin (optional)"
             android:inputType="number"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/btnSubmit"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/imageView5" />
+            app:layout_constraintStart_toEndOf="@+id/imgInsulin"
+            app:layout_constraintTop_toBottomOf="@+id/txtCarbs" />
 
         <Button
             android:id="@+id/btnSubmit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp"
             android:text="SUBMIT"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/textView"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.762" />
-
-        <ImageView
-            android:id="@+id/imageView4"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginBottom="60dp"
-            android:layout_marginTop="8dp"
-            android:src="@drawable/ic_fork"
-            app:layout_constraintBottom_toTopOf="@+id/imageView5"
-            app:layout_constraintEnd_toStartOf="@+id/txtCarbs"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintTop_toBottomOf="@+id/txtInsulin" />
 
-        <ImageView
-            android:id="@+id/imageView5"
+        <ImageButton
+            android:id="@+id/imgCarbs"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginBottom="204dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/ic_fork"
+            app:layout_constraintBottom_toTopOf="@+id/imgInsulin"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtGlucose"
+            app:layout_constraintVertical_bias="0.472" />
+
+        <ImageButton
+            android:id="@+id/imgInsulin"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginBottom="32dp"
             android:src="@drawable/ic_syringe"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/btnSubmit"
             app:layout_constraintEnd_toStartOf="@+id/txtInsulin"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent" />
 
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="302dp"
+            android:layout_height="75dp"
+            android:gravity="center"
+            android:text="Press the icons to get carbs online calculator and recommended bolus by your preferences."
+            android:textAlignment="center"
+            android:textColor="@color/wallet_hint_foreground_holo_dark"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/imageView4"
+            app:layout_constraintTop_toBottomOf="@+id/btnSubmit" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_menu_help"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/textView"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imgInsulin"
+            app:layout_constraintVertical_bias="0.596" />
 
 
     </android.support.constraint.ConstraintLayout>

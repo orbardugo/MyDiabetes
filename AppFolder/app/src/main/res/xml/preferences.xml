@@ -22,9 +22,24 @@
         android:selectAllOnFocus="true"
         android:singleLine="true"
         android:title="Emergency phone number:" />
-    <CheckBoxPreference
-        android:defaultValue="false"
-        android:key="check_box_alerts"
-        android:title="Alerts" />
+    <EditTextPreference
+        android:defaultValue="50"
+        android:key="edit_text_insulin_sensitivity"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="Insulin sensitivity:" />
+    <EditTextPreference
+        android:defaultValue="10"
+        android:key="edit_text_carbo_ratio"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="Carbohydrate ratio:" />
+    <EditTextPreference
+        android:defaultValue="100"
+        android:key="edit_text_gluc_target"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="Blood glucose target" />
+
 
 </PreferenceScreen>

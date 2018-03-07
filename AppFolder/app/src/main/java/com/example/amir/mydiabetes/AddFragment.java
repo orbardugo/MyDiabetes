@@ -3,16 +3,21 @@ package com.example.amir.mydiabetes;
 import android.app.FragmentTransaction;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
 //import android.support.v4.app.Fragment;
 import android.app.Fragment;
+import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -24,11 +29,14 @@ public class AddFragment extends Fragment implements View.OnClickListener{
     // NOTE: Removed Some unwanted Boiler Plate Codes
     private OnFragmentInteractionListener mListener;
     private Context mContext;
+    View view;
     AssignmentsDbHelper dbHelper;
     SQLiteDatabase db;
     EditText inputGluc , inputIns , inputCarbs;
+    ImageButton imgCarbs,imgInsulin;
     Button submitBtn;
     Snackbar errorSnackbar;
+    SharedPreferences prefs;
     public AddFragment() {}
 
 
@@ -40,12 +48,16 @@ public class AddFragment extends Fragment implements View.OnClickListener{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
 
-        View view= inflater.inflate(R.layout.fragment_add, container, false);
+        view= inflater.inflate(R.layout.fragment_add, container, false);
         inputGluc = view.findViewById(R.id.txtGlucose);
         inputIns = view.findViewById(R.id.txtInsulin);
         inputCarbs = view.findViewById(R.id.txtCarbs);
         submitBtn = view.findViewById(R.id.btnSubmit);
+        imgCarbs = view.findViewById(R.id.imgCarbs);
+        imgInsulin = view.findViewById(R.id.imgInsulin);
         submitBtn.setOnClickListener(this);
+        imgCarbs.setOnClickListener(this);
+        imgInsulin.setOnClickListener(this);
         String stringId  = "Please enter glucose level";
         errorSnackbar = Snackbar.make(view, stringId,  Snackbar.LENGTH_SHORT);
 
@@ -81,36 +93,62 @@ public class AddFragment extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        if(inputGluc.getText().length() == 0) {
-            errorSnackbar.show();
-            return;
+        if(v.getId()==R.id.btnSubmit) {
+            if (inputGluc.getText().length() == 0) {
+                errorSnackbar.show();
+                return;
+            }
+            mContext = this.getActivity();
+            dbHelper = new AssignmentsDbHelper(mContext);
+            db = dbHelper.getWritableDatabase();
+
+            DateFormat df = new SimpleDateFormat("dd-MM-yyyy 'At' HH:mm");
+            String date = df.format(Calendar.getInstance().getTime());
+            ContentValues values = new ContentValues();
+
+            values.put(Constants.diabetesTable.GLUCOSE, "" + inputGluc.getText());
+            values.put(Constants.diabetesTable.INSULIN, "" + inputIns.getText());
+            values.put(Constants.diabetesTable.CARBO, "" + inputCarbs.getText());
+            values.put(Constants.diabetesTable.DATE, date);
+
+            long id;
+            id = db.insert(Constants.diabetesTable.TABLE_NAME, null, values);
+            db.close();
+            Bundle bundle = new Bundle();
+            bundle.putInt("glucose", Integer.parseInt(inputGluc.getText().toString()));
+            //bundle.putInt("carbo",Integer.parseInt(""+inputCarbs.getText()));
+            //bundle.putInt("insulin",Integer.parseInt(""+inputIns.getText()));
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            Fragment submitFragment = new SubmitFragment();
+            submitFragment.setArguments(bundle);
+            transaction.replace(R.id.mainFrame, submitFragment);
+            // transaction.addToBackStack(null);
+            transaction.commit();
         }
-        mContext = this.getActivity();
-        dbHelper = new AssignmentsDbHelper(mContext);
-        db = dbHelper.getWritableDatabase();
-
-        DateFormat df = new SimpleDateFormat("dd-MM-yyyy 'At' HH:mm");
-        String date = df.format(Calendar.getInstance().getTime());
-        ContentValues values = new ContentValues();
-
-        values.put(Constants.diabetesTable.GLUCOSE,""+inputGluc.getText());
-        values.put(Constants.diabetesTable.INSULIN,""+inputIns.getText());
-        values.put(Constants.diabetesTable.CARBO,""+inputCarbs.getText());
-        values.put(Constants.diabetesTable.DATE, date);
-
-        long id;
-        id = db.insert(Constants.diabetesTable.TABLE_NAME,null,values);
-        db.close();
-        Bundle bundle = new Bundle();
-        bundle.putInt("glucose",Integer.parseInt(inputGluc.getText().toString()));
-        //bundle.putInt("carbo",Integer.parseInt(""+inputCarbs.getText()));
-        //bundle.putInt("insulin",Integer.parseInt(""+inputIns.getText()));
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        Fragment submitFragment = new SubmitFragment();
-        submitFragment.setArguments(bundle);
-        transaction.replace(R.id.mainFrame, submitFragment);
-       // transaction.addToBackStack(null);
-        transaction.commit();
+        else if(v.getId()==R.id.imgCarbs){
+            Uri uriUrl = Uri.parse("https://www.webmd.com/diet/healthtool-food-calorie-counter");
+            Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
+            startActivity(launchBrowser);
+        }
+        else{
+            if((inputGluc.getText().toString()).compareTo("")==0)
+                return;
+            int x=0;
+            int gluc_now = Integer.parseInt(inputGluc.getText().toString());
+            prefs = PreferenceManager.getDefaultSharedPreferences(view.getContext());
+            int insulin_sensitivity = Integer.parseInt(prefs.getString("edit_text_insulin_sensitivity", ""));
+            int carbo_ratio = Integer.parseInt(prefs.getString("edit_text_carbo_ratio", ""));
+            int gluc_target = Integer.parseInt(prefs.getString("edit_text_gluc_target", ""));
+            x = (gluc_now-gluc_target)/insulin_sensitivity;
+            if((inputCarbs.getText().toString()).compareTo("")!=0)
+            {
+                int carbs = Integer.parseInt(inputCarbs.getText().toString());
+                x+= carbs/carbo_ratio;
+            }
+            if(x<0)
+                x=0;
+            inputIns.setHint("Recommended :"+x);
+        }
     }
 
 
