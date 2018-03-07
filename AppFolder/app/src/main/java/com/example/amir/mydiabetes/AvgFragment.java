@@ -1,6 +1,7 @@
 package com.example.amir.mydiabetes;
 
 
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -23,14 +24,15 @@ import java.util.Date;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AvgFragment extends Fragment implements View.OnTouchListener {
+public class AvgFragment extends Fragment implements View.OnTouchListener,View.OnClickListener {
     private Context mContext;
     TextView txtRange, txtAvg;
-    Button leftBtn,rightBtn;
+    private AddFragment.OnFragmentInteractionListener mListener;
     AssignmentsDbHelper dbHelper;
     SQLiteDatabase db;
     int sum,count,avg,range;
     Cursor c;
+    Button graphBtn;
     public AvgFragment() {
         // Required empty public constructor
     }
@@ -42,6 +44,8 @@ public class AvgFragment extends Fragment implements View.OnTouchListener {
         // Inflate the layout for this fragment
         mContext = this.getActivity();
         View view= inflater.inflate(R.layout.fragment_avg, container, false);
+        graphBtn = view.findViewById(R.id.graphBtn);
+        graphBtn.setOnClickListener(this);
         txtAvg = view.findViewById(R.id.textAvg);
         txtRange = view.findViewById(R.id.rangeTxt);
 
@@ -85,6 +89,16 @@ public class AvgFragment extends Fragment implements View.OnTouchListener {
         return view;
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof AddFragment.OnFragmentInteractionListener) {
+            mListener = (AddFragment.OnFragmentInteractionListener) context;
+        } else {
+            // NOTE: This is the part that usually gives you the error
+            throw new RuntimeException(context.toString() + " must implement OnFragmentInteractionListener");
+        }
+    }
     public void setAvg(){
         sum=0;count=0;avg=0;
 
@@ -163,5 +177,56 @@ public class AvgFragment extends Fragment implements View.OnTouchListener {
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
         return false;
+    }
+
+    @Override
+    public void onClick(View v) {
+        int sumM=0;int sumN=0;int sumE=0;int countM=0;int countN=0;int countE=0;
+        c.moveToFirst();
+        Bundle bundle = new Bundle();
+        int morningAvg,noonAvg,eveningAvg;
+        Date fromMorning,toMorning;
+
+        Date date = new Date();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        int t = cal.get(Calendar.HOUR_OF_DAY) * 100 + cal.get(Calendar.MINUTE);
+        Date dateR=null;
+        DateFormat df = new SimpleDateFormat("HHmm");
+        fromMorning =Calendar.getInstance().getTime();
+        toMorning =Calendar.getInstance().getTime();
+        String dateStr = c.getString(1);
+        try {
+            dateR = df.parse(dateStr);
+            fromMorning = df.parse("0600");
+            toMorning = df.parse("1200");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        if( dateR.after(fromMorning)&& dateR.after(toMorning))
+        {
+            sumM += c.getInt(0);
+            countM++;
+        }
+
+
+
+        while(c.moveToNext()) {
+            sumM += c.getInt(0);
+            countM++;
+        }
+        morningAvg = sumM/countM;
+        bundle.putInt("MorningAvg",morningAvg);
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        Fragment graphFragment = new graphFragment();
+        graphFragment.setArguments(bundle);
+        transaction.replace(R.id.mainFrame, graphFragment);
+        // transaction.addToBackStack(null);
+        transaction.commit();
+    }
+    public interface OnFragmentInteractionListener {
+        // NOTE : We changed the Uri to String.
+        void onFragmentInteraction(String title);
     }
 }
