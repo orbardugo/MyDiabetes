@@ -111,6 +111,7 @@ public class MainActivity extends AppCompatActivity
         if(userEmail.getText().equals("Enter your email address"))
             userEmail.setText(""+email);
 
+        
         int id = item.getItemId();
         Fragment fragment = null;
         if (id == R.id.nav_glucometer) {
