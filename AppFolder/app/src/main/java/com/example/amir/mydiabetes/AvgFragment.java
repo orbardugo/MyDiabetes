@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -33,6 +34,7 @@ public class AvgFragment extends Fragment implements View.OnTouchListener,View.O
     int sum,count,avg,range;
     Cursor c;
     Button graphBtn;
+    Snackbar errorSnackbar;
     public AvgFragment() {
         // Required empty public constructor
     }
@@ -48,6 +50,8 @@ public class AvgFragment extends Fragment implements View.OnTouchListener,View.O
         graphBtn.setOnClickListener(this);
         txtAvg = view.findViewById(R.id.textAvg);
         txtRange = view.findViewById(R.id.rangeTxt);
+        String errMsg  = "There is no data to show";
+        errorSnackbar = Snackbar.make(view, errMsg,  Snackbar.LENGTH_SHORT);
 
         dbHelper = new AssignmentsDbHelper(mContext);
         db = dbHelper.getReadableDatabase();
@@ -161,7 +165,8 @@ public class AvgFragment extends Fragment implements View.OnTouchListener,View.O
                 }
             }
         }
-        avg=sum/count;
+        if (count != 0)
+            avg=sum/count;
         txtAvg.setText(""+avg);
         if(range==0)
             txtRange.setText("Today");
@@ -182,10 +187,14 @@ public class AvgFragment extends Fragment implements View.OnTouchListener,View.O
     @Override
     public void onClick(View v) {
         int sumM=0;int sumN=0;int sumE=0;int countM=0;int countN=0;int countE=0;
+        if(c.getCount() == 0) {
+            errorSnackbar.show();
+            return;
+        }
         c.moveToFirst();
         Bundle bundle = new Bundle();
-        int morningAvg,noonAvg,eveningAvg;
-        Date fromMorning,toMorning;
+        int morningAvg = 0,noonAvg = 0,eveningAvg = 0;
+        Date fromMorning,toMorning,fromNoon,toNoon,fromEvening,toEvening;
 
         Date date = new Date();
         Calendar cal = Calendar.getInstance();
@@ -195,29 +204,86 @@ public class AvgFragment extends Fragment implements View.OnTouchListener,View.O
         DateFormat df = new SimpleDateFormat("HHmm");
         fromMorning =Calendar.getInstance().getTime();
         toMorning =Calendar.getInstance().getTime();
+        fromNoon =Calendar.getInstance().getTime();
+        toNoon =Calendar.getInstance().getTime();
+        fromEvening =Calendar.getInstance().getTime();
+        toEvening =Calendar.getInstance().getTime();
         String dateStr = c.getString(1);
         try {
-            dateR = df.parse(dateStr);
-            fromMorning = df.parse("0600");
-            toMorning = df.parse("1200");
+            //dateR = df.parse(dateStr);
+            String[] times = dateStr.substring(14, 19).split(":");
+            String cTime = ""+times[0] + times[1];
+            dateR = df.parse(cTime);
+            fromMorning = df.parse("0600");//06:00
+            toMorning = df.parse("1300");//13:00
+            fromNoon = df.parse("1301");//13:01
+            toNoon = df.parse("1900");//19:00
+            fromEvening = df.parse("1901");//19:01
+            toEvening = df.parse("0559");//05:59
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
-        if( dateR.after(fromMorning)&& dateR.after(toMorning))
+        if( dateR.after(fromMorning)&& dateR.before(toMorning))
         {
             sumM += c.getInt(0);
             countM++;
+        }
+        else if(dateR.after(fromNoon)&& dateR.before(toNoon))
+        {
+            sumN += c.getInt(0);
+            countN++;
+        }
+        else
+        {
+            sumE += c.getInt(0);
+            countE++;
         }
 
 
 
         while(c.moveToNext()) {
-            sumM += c.getInt(0);
-            countM++;
+
+            dateStr = c.getString(1);
+            try {
+                //dateR = df.parse(dateStr);
+                String[] times = dateStr.substring(14, 19).split(":");
+                String cTime = ""+times[0] + times[1];
+                dateR = df.parse(cTime);
+                fromMorning = df.parse("0600");//06:00
+                toMorning = df.parse("1300");//13:00
+                fromNoon = df.parse("1301");//13:01
+                toNoon = df.parse("1900");//19:00
+                fromEvening = df.parse("1901");//19:01
+                toEvening = df.parse("0559");//05:59
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            if( dateR.after(fromMorning)&& dateR.before(toMorning))
+            {
+                sumM += c.getInt(0);
+                countM++;
+            }
+            else if(dateR.after(fromNoon)&& dateR.before(toNoon))
+            {
+                sumN += c.getInt(0);
+                countN++;
+            }
+            else
+            {
+                sumE += c.getInt(0);
+                countE++;
+            }
         }
-        morningAvg = sumM/countM;
+        if(countM != 0)
+            morningAvg = sumM/countM;
+        if(countN != 0)
+            noonAvg = sumN/countN;
+        if(countE != 0)
+            eveningAvg = sumE/countE;
         bundle.putInt("MorningAvg",morningAvg);
+        bundle.putInt("NoonAvg",noonAvg);
+        bundle.putInt("EveningAvg",eveningAvg);
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         Fragment graphFragment = new graphFragment();
         graphFragment.setArguments(bundle);
