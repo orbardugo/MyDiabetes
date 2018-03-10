@@ -186,15 +186,17 @@ public class AvgFragment extends Fragment implements View.OnTouchListener,View.O
 
     @Override
     public void onClick(View v) {
+        //================graph==========================
         int sumM=0;int sumN=0;int sumE=0;int countM=0;int countN=0;int countE=0;
         if(c.getCount() == 0) {
             errorSnackbar.show();
             return;
         }
         c.moveToFirst();
-        Bundle bundle = new Bundle();
+        Bundle bundle = new Bundle();//all the graph data will be in the bundle
+
         int morningAvg = 0,noonAvg = 0,eveningAvg = 0;
-        Date fromMorning,toMorning,fromNoon,toNoon,fromEvening,toEvening;
+        Date fromMorning,toMorning,fromNoon,toNoon;
 
         Date date = new Date();
         Calendar cal = Calendar.getInstance();
@@ -206,8 +208,6 @@ public class AvgFragment extends Fragment implements View.OnTouchListener,View.O
         toMorning =Calendar.getInstance().getTime();
         fromNoon =Calendar.getInstance().getTime();
         toNoon =Calendar.getInstance().getTime();
-        fromEvening =Calendar.getInstance().getTime();
-        toEvening =Calendar.getInstance().getTime();
         String dateStr = c.getString(1);
         try {
             //dateR = df.parse(dateStr);
@@ -218,12 +218,10 @@ public class AvgFragment extends Fragment implements View.OnTouchListener,View.O
             toMorning = df.parse("1300");//13:00
             fromNoon = df.parse("1301");//13:01
             toNoon = df.parse("1900");//19:00
-            fromEvening = df.parse("1901");//19:01
-            toEvening = df.parse("0559");//05:59
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
+        //sum the amount of glucose
         if( dateR.after(fromMorning)&& dateR.before(toMorning))
         {
             sumM += c.getInt(0);
@@ -254,8 +252,6 @@ public class AvgFragment extends Fragment implements View.OnTouchListener,View.O
                 toMorning = df.parse("1300");//13:00
                 fromNoon = df.parse("1301");//13:01
                 toNoon = df.parse("1900");//19:00
-                fromEvening = df.parse("1901");//19:01
-                toEvening = df.parse("0559");//05:59
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -275,15 +271,18 @@ public class AvgFragment extends Fragment implements View.OnTouchListener,View.O
                 countE++;
             }
         }
+        //create average for morning noon and evening
         if(countM != 0)
             morningAvg = sumM/countM;
         if(countN != 0)
             noonAvg = sumN/countN;
         if(countE != 0)
             eveningAvg = sumE/countE;
+        //put the everage in the bundle
         bundle.putInt("MorningAvg",morningAvg);
         bundle.putInt("NoonAvg",noonAvg);
         bundle.putInt("EveningAvg",eveningAvg);
+        //switch fragment and send the bundle to the graph fragment
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         Fragment graphFragment = new graphFragment();
         graphFragment.setArguments(bundle);

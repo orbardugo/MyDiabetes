@@ -38,9 +38,9 @@ public class graphFragment extends Fragment {
 
         GraphView graph = (GraphView) view.findViewById(R.id.graph);
         BarGraphSeries<DataPoint> series = new BarGraphSeries<DataPoint>(new DataPoint[] {
-                new DataPoint(0, getArguments().getInt("MorningAvg")),
-                new DataPoint(1, getArguments().getInt("NoonAvg")),
-                new DataPoint(2, getArguments().getInt("EveningAvg"))
+                new DataPoint(0, getArguments().getInt("MorningAvg")),//morning bar
+                new DataPoint(1, getArguments().getInt("NoonAvg")),//noon bar
+                new DataPoint(2, getArguments().getInt("EveningAvg"))//evening bar
         });
         graph.addSeries(series);
         StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph);
@@ -54,10 +54,10 @@ public class graphFragment extends Fragment {
             }
         });
         series.setSpacing(30);
-        series.setDrawValuesOnTop(true);
+        series.setDrawValuesOnTop(true);//value on top of each bar
         series.setValuesOnTopColor(Color.RED);
-        graph.setTitle("All time Glucose level by day time");
-        graph.setTitleTextSize(60);
+        graph.setTitle("All time Glucose level by day time");//graph title
+        graph.setTitleTextSize(60);//title size
         graph.setTitleColor(Color.rgb(255,0,0));
         return view;
     }
