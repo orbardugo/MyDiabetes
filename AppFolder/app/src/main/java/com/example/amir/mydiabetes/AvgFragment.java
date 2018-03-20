@@ -27,11 +27,14 @@ import java.util.Date;
  */
 public class AvgFragment extends Fragment implements View.OnTouchListener,View.OnClickListener {
 
-    TextView txtRange, txtAvg;
+    TextView txtRange;
+    TextView txtAvg;
     private AddFragment.OnFragmentInteractionListener mListener;
-    int sum,count,avg,range;
+    int sum;
+    int count;
+    int avg;
+    int range;
     Cursor c;
-    Snackbar errorSnackbar;
 
 
 
@@ -49,8 +52,7 @@ public class AvgFragment extends Fragment implements View.OnTouchListener,View.O
         graphBtn.setOnClickListener(this);
         txtAvg = view.findViewById(R.id.textAvg);
         txtRange = view.findViewById(R.id.rangeTxt);
-        String errMsg  = "There is no data to show";
-        errorSnackbar = Snackbar.make(view, errMsg,  Snackbar.LENGTH_SHORT);
+
 
         dbHelper = new AssignmentsDbHelper(mContext);
         db = dbHelper.getReadableDatabase();
@@ -106,7 +108,9 @@ public class AvgFragment extends Fragment implements View.OnTouchListener,View.O
         }
     }
     public void setAvg(){
-        sum=0;count=0;avg=0;
+        sum=0;
+        count=0;
+        avg=0;
 
         DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
         String todayStr = df.format(Calendar.getInstance().getTime());
@@ -191,13 +195,18 @@ public class AvgFragment extends Fragment implements View.OnTouchListener,View.O
         //================graph==========================
         int sumM=0;int sumN=0;int sumE=0;int countM=0;int countN=0;int countE=0;
         if(c.getCount() == 0) {
+            Snackbar errorSnackbar;
+            String errMsg  = "There is no data to show";
+            errorSnackbar = Snackbar.make(v, errMsg,  Snackbar.LENGTH_SHORT);
             errorSnackbar.show();
             return;
         }
         c.moveToFirst();
         Bundle bundle = new Bundle();//all the graph data will be in the bundle
 
-        int morningAvg = 0,noonAvg = 0,eveningAvg = 0;
+        int morningAvg = 0;
+        int noonAvg = 0;
+        int eveningAvg = 0;
         Date fromMorning;
         Date toMorning;
         Date fromNoon;

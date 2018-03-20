@@ -31,8 +31,6 @@ public class AddFragment extends Fragment implements View.OnClickListener{
     SQLiteDatabase db;
     EditText inputGluc , inputIns , inputCarbs;
     ImageButton imgCarbs,imgInsulin;
-    Button submitBtn;
-    Snackbar errorSnackbar;
     SharedPreferences prefs;
 
     @Override
@@ -44,6 +42,7 @@ public class AddFragment extends Fragment implements View.OnClickListener{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
 
         view= inflater.inflate(R.layout.fragment_add, container, false);
+        Button submitBtn;
         inputGluc = view.findViewById(R.id.txtGlucose);
         inputIns = view.findViewById(R.id.txtInsulin);
         inputCarbs = view.findViewById(R.id.txtCarbs);
@@ -53,10 +52,9 @@ public class AddFragment extends Fragment implements View.OnClickListener{
         submitBtn.setOnClickListener(this);
         imgCarbs.setOnClickListener(this);
         imgInsulin.setOnClickListener(this);
-        String stringId  = "Please enter glucose level";
-        errorSnackbar = Snackbar.make(view, stringId,  Snackbar.LENGTH_SHORT);
 
-        
+
+
 
         // NOTE : We are calling the onFragmentInteraction() declared in the MainActivity
         // ie we are sending "Fragment 1" as title parameter when fragment1 is activated
@@ -79,7 +77,8 @@ public class AddFragment extends Fragment implements View.OnClickListener{
             mListener = (OnFragmentInteractionListener) context;
         } else {
             // NOTE: This is the part that usually gives you the error
-            throw new RuntimeException(context.toString() + " must implement OnFragmentInteractionListener");
+            String excep = context.toString() + " must implement OnFragmentInteractionListener";
+            throw new RuntimeException(excep);
         }
     }
 
@@ -92,6 +91,9 @@ public class AddFragment extends Fragment implements View.OnClickListener{
     public void onClick(View v) {
         if(v.getId()==R.id.btnSubmit) {
             if (inputGluc.getText().length() == 0) {
+                Snackbar errorSnackbar;
+                String stringId  = "Please enter glucose level";
+                errorSnackbar = Snackbar.make(view, stringId,  Snackbar.LENGTH_SHORT);
                 errorSnackbar.show();
                 return;
             }

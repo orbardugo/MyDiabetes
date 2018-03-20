@@ -40,11 +40,6 @@ public class SubmitFragment extends Fragment implements GoogleApiClient.Connecti
     GoogleApiClient mGoogleApiClient;
     LocationRequest mLocationRequest;
     Location mCurrentLocation;
-    Snackbar smsSnackbar;
-
-    public SubmitFragment() {
-        // Required empty public constructor
-    }
 
 
     @SuppressLint("ResourceAsColor")
@@ -69,8 +64,7 @@ public class SubmitFragment extends Fragment implements GoogleApiClient.Connecti
         phoneNum = prefs.getString("edit_text_emergency", "");
         smsBtn = view.findViewById(R.id.smsBtn);
         smsBtn.setOnClickListener(this);
-        String smsSend  = "emergency sms was sent";
-        smsSnackbar = Snackbar.make(view, smsSend,  Snackbar.LENGTH_SHORT);
+
 
         int gluc = getArguments().getInt("glucose");
         String res = null;
@@ -130,6 +124,9 @@ public class SubmitFragment extends Fragment implements GoogleApiClient.Connecti
         lat = mCurrentLocation.getLatitude();
         lng = mCurrentLocation.getLongitude();
         smsManager.sendTextMessage(phoneNum, null, name+"'s blood sugar is very high! glucose:" + getArguments().getInt("glucose") + " \nhis location is at: " + "http://maps.google.com/?q="+lat+","+lng , null, null);
+        Snackbar smsSnackbar;
+        String smsSend  = "emergency sms was sent";
+        smsSnackbar = Snackbar.make(view, smsSend,  Snackbar.LENGTH_SHORT);
         smsSnackbar.show();
     }
 
