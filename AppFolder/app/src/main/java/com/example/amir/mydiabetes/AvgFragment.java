@@ -165,8 +165,8 @@ public class AvgFragment extends Fragment implements View.OnTouchListener,View.O
                 }
             }
         }
-        if (count != 0)
-            avg=sum/count;
+        //if (count != 0)
+        avg=sum/count;
         txtAvg.setText(""+avg);
         if(range==0)
             txtRange.setText("Today");

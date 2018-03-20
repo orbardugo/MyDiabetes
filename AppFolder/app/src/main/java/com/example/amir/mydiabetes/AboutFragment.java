@@ -18,8 +18,6 @@ import android.widget.TextView;
  */
 public class AboutFragment extends Fragment {
 
-    View view;
-    TextView txtAbout;
 
     private OnFragmentInteractionListener mListener;
 
@@ -31,6 +29,9 @@ public class AboutFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        View view;
+        TextView txtAbout;
         // Inflate the layout for this fragment
         view =  inflater.inflate(R.layout.fragment_about, container, false);
         txtAbout = view.findViewById(R.id.txtAbout);
