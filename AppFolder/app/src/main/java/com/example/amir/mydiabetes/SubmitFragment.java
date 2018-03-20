@@ -109,7 +109,8 @@ public class SubmitFragment extends Fragment implements GoogleApiClient.Connecti
     public void onClick(View v) {
         SmsManager smsManager;
         smsManager = SmsManager.getDefault();
-        Double lat, lng;
+        Double lat;
+        Double lng;
         createLocationRequest();
         if (ActivityCompat.checkSelfPermission(view.getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(view.getContext()    , android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling

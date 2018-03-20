@@ -153,6 +153,7 @@ public class MainActivity extends AppCompatActivity
                 } else {
                     Log.e("MainActivity","Permissions was denied");
                 }
+                break;
             }
             case 2: {
                 if (grantResults.length > 0
@@ -161,6 +162,7 @@ public class MainActivity extends AppCompatActivity
                 } else {
                     Log.e("MainActivity", "Permissions was denied");
                 }
+                break;
             }
 
             default: break;
