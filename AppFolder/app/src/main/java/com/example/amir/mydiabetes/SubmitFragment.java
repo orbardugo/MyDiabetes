@@ -122,7 +122,6 @@ public class SubmitFragment extends Fragment implements GoogleApiClient.Connecti
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        
         lat = mCurrentLocation.getLatitude();
         lng = mCurrentLocation.getLongitude();
         smsManager.sendTextMessage(phoneNum, null, name+"'s blood sugar is very high! glucose:" + getArguments().getInt("glucose") + " \nhis location is at: " + "http://maps.google.com/?q="+lat+","+lng , null, null);
