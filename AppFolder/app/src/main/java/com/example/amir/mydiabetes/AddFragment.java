@@ -56,6 +56,8 @@ public class AddFragment extends Fragment implements View.OnClickListener{
         String stringId  = "Please enter glucose level";
         errorSnackbar = Snackbar.make(view, stringId,  Snackbar.LENGTH_SHORT);
 
+        
+
         // NOTE : We are calling the onFragmentInteraction() declared in the MainActivity
         // ie we are sending "Fragment 1" as title parameter when fragment1 is activated
 
