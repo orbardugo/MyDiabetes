@@ -67,12 +67,5 @@ public class MyCustomAdapter extends RecyclerView.Adapter<MyCustomAdapter.MyView
             layout = view.findViewById(R.id.rowLayout);
         }
 
-
-
-        public void changeCursor(Cursor cursor) {
-
-        }
-
-
     }
 }

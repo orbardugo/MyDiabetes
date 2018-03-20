@@ -31,7 +31,6 @@ public class AvgFragment extends Fragment implements View.OnTouchListener,View.O
     private AddFragment.OnFragmentInteractionListener mListener;
     int sum,count,avg,range;
     Cursor c;
-    Button graphBtn;
     Snackbar errorSnackbar;
 
 
@@ -45,6 +44,7 @@ public class AvgFragment extends Fragment implements View.OnTouchListener,View.O
         Context mContext;
         mContext = this.getActivity();
         View view= inflater.inflate(R.layout.fragment_avg, container, false);
+        Button graphBtn;
         graphBtn = view.findViewById(R.id.graphBtn);
         graphBtn.setOnClickListener(this);
         txtAvg = view.findViewById(R.id.textAvg);
@@ -197,7 +197,10 @@ public class AvgFragment extends Fragment implements View.OnTouchListener,View.O
         Bundle bundle = new Bundle();//all the graph data will be in the bundle
 
         int morningAvg = 0,noonAvg = 0,eveningAvg = 0;
-        Date fromMorning,toMorning,fromNoon,toNoon;
+        Date fromMorning;
+        Date toMorning;
+        Date fromNoon;
+        Date toNoon;
 
         Date date = new Date();
         Calendar cal = Calendar.getInstance();

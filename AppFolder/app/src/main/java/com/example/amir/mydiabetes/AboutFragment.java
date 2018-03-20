@@ -18,8 +18,6 @@ import android.widget.TextView;
 public class AboutFragment extends Fragment {
 
 
-    private OnFragmentInteractionListener mListener;
-
     public AboutFragment() {
         // Required empty public constructor
     }
@@ -54,6 +52,7 @@ public class AboutFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        OnFragmentInteractionListener mListener;
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {
@@ -64,7 +63,6 @@ public class AboutFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
     }
 
     /**

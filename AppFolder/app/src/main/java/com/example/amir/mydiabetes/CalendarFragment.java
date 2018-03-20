@@ -14,7 +14,6 @@ import android.app.Fragment;
 
 public class CalendarFragment extends Fragment {
 
-    private Context mContext;
     RecyclerView myRecyclerView;
     AssignmentsDbHelper dbHelper;
     SQLiteDatabase db;
@@ -32,6 +31,7 @@ public class CalendarFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Context mContext;
         mContext = this.getActivity();
         View view = inflater.inflate(R.layout.fragment_calendar, container, false);
         myRecyclerView = view.findViewById(R.id.recyclerView);

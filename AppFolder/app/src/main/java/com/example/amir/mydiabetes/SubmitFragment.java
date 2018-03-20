@@ -33,13 +33,11 @@ import com.google.android.gms.location.LocationServices;
 public class SubmitFragment extends Fragment implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener, LocationListener, View.OnClickListener {
 
-    TextView result,headtxt;
+    TextView headtxt;
     Button smsBtn;
     View view;
-    SmsManager smsManager;
     String name;
     String phoneNum;
-    Double lat, lng;
     GoogleApiClient mGoogleApiClient;
     LocationRequest mLocationRequest;
     Location mCurrentLocation;
@@ -56,6 +54,7 @@ public class SubmitFragment extends Fragment implements GoogleApiClient.Connecti
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_submit, container, false);
+        TextView result;
         result = view.findViewById(R.id.sugarLvlTxt);
         headtxt = view.findViewById(R.id.txtHead);
         if (mGoogleApiClient == null) {
@@ -114,7 +113,9 @@ public class SubmitFragment extends Fragment implements GoogleApiClient.Connecti
 
     @Override
     public void onClick(View v) {
+        SmsManager smsManager;
         smsManager = SmsManager.getDefault();
+        Double lat, lng;
         createLocationRequest();
         if (ActivityCompat.checkSelfPermission(view.getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(view.getContext()    , android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
