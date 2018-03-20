@@ -22,10 +22,6 @@ public class CalendarFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public CalendarFragment() {
-        // Required empty public constructor
-    }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

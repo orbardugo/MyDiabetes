@@ -1,17 +1,11 @@
 package com.example.amir.mydiabetes;
 
-//import android.app.Fragment;
-//import android.support.v4.app.Fragment;
 import android.Manifest;
 import android.app.Fragment;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
@@ -168,6 +162,8 @@ public class MainActivity extends AppCompatActivity
                     Log.e("MainActivity", "Permissions was denied");
                 }
             }
+
+            default: break;
         }
     }
 

@@ -8,7 +8,6 @@ import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
-//import android.support.v4.app.Fragment;
 import android.app.Fragment;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
@@ -18,11 +17,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 public class AddFragment extends Fragment implements View.OnClickListener{
 

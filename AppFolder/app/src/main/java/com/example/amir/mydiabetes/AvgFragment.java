@@ -29,8 +29,6 @@ public class AvgFragment extends Fragment implements View.OnTouchListener,View.O
     private Context mContext;
     TextView txtRange, txtAvg;
     private AddFragment.OnFragmentInteractionListener mListener;
-    AssignmentsDbHelper dbHelper;
-    SQLiteDatabase db;
     int sum,count,avg,range;
     Cursor c;
     Button graphBtn;
@@ -44,6 +42,8 @@ public class AvgFragment extends Fragment implements View.OnTouchListener,View.O
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        AssignmentsDbHelper dbHelper;
+        SQLiteDatabase db;
         mContext = this.getActivity();
         View view= inflater.inflate(R.layout.fragment_avg, container, false);
         graphBtn = view.findViewById(R.id.graphBtn);
