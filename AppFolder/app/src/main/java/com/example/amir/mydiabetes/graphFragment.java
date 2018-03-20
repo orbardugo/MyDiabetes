@@ -14,15 +14,7 @@ import com.jjoe64.graphview.series.DataPoint;
 
 
 
-public class graphFragment extends Fragment {
-
-
-
-    public graphFragment() {
-        // Required empty public constructor
-    }
-
-
+public class GraphFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

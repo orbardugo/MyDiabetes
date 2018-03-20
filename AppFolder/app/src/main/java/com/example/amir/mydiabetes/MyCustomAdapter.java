@@ -33,6 +33,26 @@ public class MyCustomAdapter extends RecyclerView.Adapter<MyCustomAdapter.MyView
         return new MyViewHolder(contactView);
     }
 
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+        TextView rowGluc;
+        TextView rowIns;
+        TextView rowCarbs;
+        TextView rowDate;
+        RelativeLayout layout;
+        AssignmentsDbHelper dbHelper;
+
+        MyViewHolder(View view) {
+            super(view);
+            dbHelper = new AssignmentsDbHelper(mContext);
+            rowGluc = view.findViewById(R.id.textGluc);
+            rowIns = view.findViewById(R.id.textIns);
+            rowCarbs = view.findViewById(R.id.textCarbs);
+            rowDate = view.findViewById(R.id.textDate);
+            layout = view.findViewById(R.id.rowLayout);
+        }
+
+    }
+
     @Override
     public void onBindViewHolder(MyCustomAdapter.MyViewHolder holder, int position) {
         mData.moveToPosition(position);
@@ -48,24 +68,5 @@ public class MyCustomAdapter extends RecyclerView.Adapter<MyCustomAdapter.MyView
         return mData.getCount();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView rowGluc;
-        TextView rowIns;
-        TextView rowCarbs;
-        TextView rowDate;
-        RelativeLayout layout;
-        SQLiteDatabase db;
-        AssignmentsDbHelper dbHelper;
 
-        MyViewHolder(View view) {
-            super(view);
-            dbHelper = new AssignmentsDbHelper(mContext);
-            rowGluc = view.findViewById(R.id.textGluc);
-            rowIns = view.findViewById(R.id.textIns);
-            rowCarbs = view.findViewById(R.id.textCarbs);
-            rowDate = view.findViewById(R.id.textDate);
-            layout = view.findViewById(R.id.rowLayout);
-        }
-
-    }
 }

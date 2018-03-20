@@ -101,7 +101,8 @@ public class AvgFragment extends Fragment implements View.OnTouchListener,View.O
             mListener = (AddFragment.OnFragmentInteractionListener) context;
         } else {
             // NOTE: This is the part that usually gives you the error
-            throw new RuntimeException(context.toString() + " must implement OnFragmentInteractionListener");
+            String excep =  context.toString() + " must implement OnFragmentInteractionListener";
+            throw new RuntimeException(excep);
         }
     }
     public void setAvg(){
@@ -287,7 +288,7 @@ public class AvgFragment extends Fragment implements View.OnTouchListener,View.O
         bundle.putInt("EveningAvg",eveningAvg);
         //switch fragment and send the bundle to the graph fragment
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        Fragment graphFragment = new graphFragment();
+        Fragment graphFragment = new GraphFragment();
         graphFragment.setArguments(bundle);
         transaction.replace(R.id.mainFrame, graphFragment);
         // transaction.addToBackStack(null);

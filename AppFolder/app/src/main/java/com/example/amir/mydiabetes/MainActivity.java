@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity
             String phone = prefs.getString("edit_text_emergency", "");
             Log.w("name",userName.getText().toString()+"\n");
             Log.w("phone",phone);
-            if(name.equals("Enter your name") || phone.equals("Enter phone for emergency sms") )
+            if("Enter your name".equals(name) || "Enter phone for emergency sms".equals(phone) )
             {
                 Toast.makeText(this,"Please fill all details",Toast.LENGTH_LONG).show();
                 return false;

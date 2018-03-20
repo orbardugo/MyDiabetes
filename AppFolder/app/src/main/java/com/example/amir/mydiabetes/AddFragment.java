@@ -24,7 +24,7 @@ import java.util.Calendar;
 public class AddFragment extends Fragment implements View.OnClickListener{
 
     // NOTE: Removed Some unwanted Boiler Plate Codes
-    private OnFragmentInteractionListener mListener;
+
     private Context mContext;
     View view;
     AssignmentsDbHelper dbHelper;
@@ -72,6 +72,7 @@ public class AddFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        OnFragmentInteractionListener mListener;
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {
@@ -83,7 +84,6 @@ public class AddFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
     }
 
     @Override
