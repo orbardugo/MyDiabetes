@@ -34,7 +34,6 @@ public class SubmitFragment extends Fragment implements GoogleApiClient.Connecti
         GoogleApiClient.OnConnectionFailedListener, LocationListener, View.OnClickListener {
 
     TextView headtxt;
-    Button smsBtn;
     View view;
     String name;
     String phoneNum;
@@ -55,6 +54,7 @@ public class SubmitFragment extends Fragment implements GoogleApiClient.Connecti
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_submit, container, false);
         TextView result;
+        Button smsBtn;
         result = view.findViewById(R.id.sugarLvlTxt);
         headtxt = view.findViewById(R.id.txtHead);
         if (mGoogleApiClient == null) {

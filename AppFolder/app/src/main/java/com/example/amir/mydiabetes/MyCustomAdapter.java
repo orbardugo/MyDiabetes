@@ -6,7 +6,6 @@ package com.example.amir.mydiabetes;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,10 +38,10 @@ public class MyCustomAdapter extends RecyclerView.Adapter<MyCustomAdapter.MyView
         TextView rowCarbs;
         TextView rowDate;
         RelativeLayout layout;
-        AssignmentsDbHelper dbHelper;
 
         MyViewHolder(View view) {
             super(view);
+            AssignmentsDbHelper dbHelper;
             dbHelper = new AssignmentsDbHelper(mContext);
             rowGluc = view.findViewById(R.id.textGluc);
             rowIns = view.findViewById(R.id.textIns);
@@ -56,6 +55,7 @@ public class MyCustomAdapter extends RecyclerView.Adapter<MyCustomAdapter.MyView
     @Override
     public void onBindViewHolder(MyCustomAdapter.MyViewHolder holder, int position) {
         mData.moveToPosition(position);
+        View view;
 
         holder.rowGluc.setText(mData.getString(0));
         holder.rowIns.setText("Ins:"+ mData.getString(1));

@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity
             userEmail.setText(""+email);
 
         Fragment fragment = null;
-        if(name.equals("") || phone.equals("Enter phone for emergency sms"))
+        if("".equals(name) || "Enter phone for emergency sms".equals(phone))
              fragment = (PrefsFragment)new PrefsFragment();
         else
             fragment = new AddFragment();
