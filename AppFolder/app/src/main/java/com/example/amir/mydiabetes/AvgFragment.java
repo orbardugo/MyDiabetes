@@ -26,16 +26,14 @@ import java.util.Date;
  * A simple {@link Fragment} subclass.
  */
 public class AvgFragment extends Fragment implements View.OnTouchListener,View.OnClickListener {
-    private Context mContext;
+
     TextView txtRange, txtAvg;
     private AddFragment.OnFragmentInteractionListener mListener;
     int sum,count,avg,range;
     Cursor c;
     Button graphBtn;
     Snackbar errorSnackbar;
-    public AvgFragment() {
-        // Required empty public constructor
-    }
+
 
 
     @Override
@@ -44,6 +42,7 @@ public class AvgFragment extends Fragment implements View.OnTouchListener,View.O
         // Inflate the layout for this fragment
         AssignmentsDbHelper dbHelper;
         SQLiteDatabase db;
+        Context mContext;
         mContext = this.getActivity();
         View view= inflater.inflate(R.layout.fragment_avg, container, false);
         graphBtn = view.findViewById(R.id.graphBtn);
@@ -76,7 +75,8 @@ public class AvgFragment extends Fragment implements View.OnTouchListener,View.O
                 range++;
                 if(range==4)
                     range=0;
-                avg=sum/count;
+                if(count != 0)
+                    avg=sum/count;
                 txtAvg.setText("Average: "+avg+" Range:"+range);
                 setAvg();
             }
@@ -84,7 +84,8 @@ public class AvgFragment extends Fragment implements View.OnTouchListener,View.O
                 range--;
                 if(range==-1)
                     range=3;
-                avg=sum/count;
+                if(count != 0)
+                    avg=sum/count;
                 txtAvg.setText("Average: "+avg+" Range:"+range);
                 setAvg();
             }
@@ -165,8 +166,8 @@ public class AvgFragment extends Fragment implements View.OnTouchListener,View.O
                 }
             }
         }
-        //if (count != 0)
-        avg=sum/count;
+        if (count != 0)
+            avg=sum/count;
         txtAvg.setText(""+avg);
         if(range==0)
             txtRange.setText("Today");
@@ -201,7 +202,6 @@ public class AvgFragment extends Fragment implements View.OnTouchListener,View.O
         Date date = new Date();
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
-        int t = cal.get(Calendar.HOUR_OF_DAY) * 100 + cal.get(Calendar.MINUTE);
         Date dateR=null;
         DateFormat df = new SimpleDateFormat("HHmm");
         fromMorning =Calendar.getInstance().getTime();

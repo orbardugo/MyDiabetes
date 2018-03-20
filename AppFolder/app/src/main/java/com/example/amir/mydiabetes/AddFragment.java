@@ -34,8 +34,6 @@ public class AddFragment extends Fragment implements View.OnClickListener{
     Button submitBtn;
     Snackbar errorSnackbar;
     SharedPreferences prefs;
-    public AddFragment() {}
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -108,8 +106,7 @@ public class AddFragment extends Fragment implements View.OnClickListener{
             values.put(Constants.diabetesTable.CARBO, "" + inputCarbs.getText());
             values.put(Constants.diabetesTable.DATE, date);
 
-            long id;
-            id = db.insert(Constants.diabetesTable.TABLE_NAME, null, values);
+            db.insert(Constants.diabetesTable.TABLE_NAME, null, values);
             db.close();
             Bundle bundle = new Bundle();
             bundle.putInt("glucose", Integer.parseInt(inputGluc.getText().toString()));

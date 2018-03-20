@@ -11,7 +11,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class AssignmentsDbHelper extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "myDiabetes.db";
-
+    private static final String SQL_DELETE_ENTRIES =
+            "DROP TABLE IF EXISTS " + Constants.diabetesTable.TABLE_NAME;
     private static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + Constants.diabetesTable.TABLE_NAME + " (" +
                     Constants.diabetesTable._ID +           " INTEGER PRIMARY KEY," +
@@ -27,9 +28,6 @@ public class AssignmentsDbHelper extends SQLiteOpenHelper {
             instance = new AssignmentsDbHelper(context);
         return instance;
     }
-    private static final String SQL_DELETE_ENTRIES =
-            "DROP TABLE IF EXISTS " + Constants.diabetesTable.TABLE_NAME;
-
     public AssignmentsDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);}
     @Override
