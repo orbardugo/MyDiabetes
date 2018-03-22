@@ -35,10 +35,10 @@ public class SubmitFragment extends Fragment implements GoogleApiClient.Connecti
 
     TextView headtxt;
     View view;
-    String name;
+    private String name;
     String phoneNum;
     GoogleApiClient mGoogleApiClient;
-    LocationRequest mLocationRequest;
+    private LocationRequest mLocationRequest;
     Location mCurrentLocation;
 
 

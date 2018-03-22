@@ -14,10 +14,10 @@ import android.app.Fragment;
 
 public class CalendarFragment extends Fragment {
 
-    RecyclerView myRecyclerView;
+    private RecyclerView myRecyclerView;
     AssignmentsDbHelper dbHelper;
-    SQLiteDatabase db;
-    MyCustomAdapter myAdapter;
+    private SQLiteDatabase db;
+    private MyCustomAdapter myAdapter;
 
     private OnFragmentInteractionListener mListener;
 

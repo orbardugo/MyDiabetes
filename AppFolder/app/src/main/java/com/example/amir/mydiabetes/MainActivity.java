@@ -25,8 +25,8 @@ public class MainActivity extends AppCompatActivity
         CalendarFragment.OnFragmentInteractionListener,
         AboutFragment.OnFragmentInteractionListener,
         NavigationView.OnNavigationItemSelectedListener {
-        TextView userName,userEmail;
-    SharedPreferences prefs;
+    private TextView userName,userEmail;
+    private SharedPreferences prefs;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

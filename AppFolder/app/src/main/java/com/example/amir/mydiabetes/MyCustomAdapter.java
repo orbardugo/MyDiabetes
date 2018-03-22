@@ -55,7 +55,6 @@ public class MyCustomAdapter extends RecyclerView.Adapter<MyCustomAdapter.MyView
     @Override
     public void onBindViewHolder(MyCustomAdapter.MyViewHolder holder, int position) {
         mData.moveToPosition(position);
-        View view;
 
         holder.rowGluc.setText(mData.getString(0));
         holder.rowIns.setText("Ins:"+ mData.getString(1));

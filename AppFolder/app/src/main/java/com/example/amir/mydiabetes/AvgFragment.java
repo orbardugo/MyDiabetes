@@ -30,10 +30,10 @@ public class AvgFragment extends Fragment implements View.OnTouchListener,View.O
     TextView txtRange;
     TextView txtAvg;
     private AddFragment.OnFragmentInteractionListener mListener;
-    int sum;
+    private int sum;
     int count;
     int avg;
-    int range;
+    private int range;
     Cursor c;
 
 

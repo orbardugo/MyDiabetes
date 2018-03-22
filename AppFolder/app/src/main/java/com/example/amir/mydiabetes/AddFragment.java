@@ -26,10 +26,10 @@ public class AddFragment extends Fragment implements View.OnClickListener{
     // NOTE: Removed Some unwanted Boiler Plate Codes
 
     private Context mContext;
-    View view;
+    private View view;
     AssignmentsDbHelper dbHelper;
-    SQLiteDatabase db;
-    EditText inputGluc , inputIns , inputCarbs;
+    private SQLiteDatabase db;
+    private EditText inputGluc , inputIns , inputCarbs;
     ImageButton imgCarbs,imgInsulin;
     SharedPreferences prefs;
 
