@@ -25,13 +25,8 @@ public class AddFragment extends Fragment implements View.OnClickListener{
 
     // NOTE: Removed Some unwanted Boiler Plate Codes
 
-    private Context mContext;
     private View view;
-    private AssignmentsDbHelper dbHelper;
-    private SQLiteDatabase db;
     private EditText inputGluc , inputIns , inputCarbs;
-    private ImageButton imgCarbs,imgInsulin;
-    private SharedPreferences prefs;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -43,6 +38,8 @@ public class AddFragment extends Fragment implements View.OnClickListener{
 
         view= inflater.inflate(R.layout.fragment_add, container, false);
         Button submitBtn;
+        ImageButton imgCarbs;
+        ImageButton imgInsulin;
         inputGluc = view.findViewById(R.id.txtGlucose);
         inputIns = view.findViewById(R.id.txtInsulin);
         inputCarbs = view.findViewById(R.id.txtCarbs);
@@ -97,8 +94,11 @@ public class AddFragment extends Fragment implements View.OnClickListener{
                 errorSnackbar.show();
                 return;
             }
+            Context mContext;
             mContext = this.getActivity();
+            AssignmentsDbHelper dbHelper;
             dbHelper = new AssignmentsDbHelper(mContext);
+            SQLiteDatabase db;
             db = dbHelper.getWritableDatabase();
 
             DateFormat df = new SimpleDateFormat("dd-MM-yyyy 'At' HH:mm");
@@ -133,6 +133,7 @@ public class AddFragment extends Fragment implements View.OnClickListener{
                 return;
             int x=0;
             int gluc_now = Integer.parseInt(inputGluc.getText().toString());
+            SharedPreferences prefs;
             prefs = PreferenceManager.getDefaultSharedPreferences(view.getContext());
             int insulin_sensitivity = Integer.parseInt(prefs.getString("edit_text_insulin_sensitivity", ""));
             int carbo_ratio = Integer.parseInt(prefs.getString("edit_text_carbo_ratio", ""));

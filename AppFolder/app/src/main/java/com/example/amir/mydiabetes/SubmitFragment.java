@@ -33,12 +33,11 @@ import com.google.android.gms.location.LocationServices;
 public class SubmitFragment extends Fragment implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener, LocationListener, View.OnClickListener {
 
-    private TextView headtxt;
+
     private View view;
     private String name;
     private String phoneNum;
     private GoogleApiClient mGoogleApiClient;
-    private LocationRequest mLocationRequest;
     private Location mCurrentLocation;
 
 
@@ -49,6 +48,7 @@ public class SubmitFragment extends Fragment implements GoogleApiClient.Connecti
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_submit, container, false);
         TextView result;
+        TextView headtxt;
         Button smsBtn;
         result = view.findViewById(R.id.sugarLvlTxt);
         headtxt = view.findViewById(R.id.txtHead);
@@ -170,6 +170,7 @@ public class SubmitFragment extends Fragment implements GoogleApiClient.Connecti
 
     }
     protected void createLocationRequest() {
+        LocationRequest mLocationRequest;
         mLocationRequest = new LocationRequest();
         mLocationRequest.setInterval(6000);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
