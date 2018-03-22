@@ -14,10 +14,6 @@ import android.app.Fragment;
 
 public class CalendarFragment extends Fragment {
 
-    private RecyclerView myRecyclerView;
-    AssignmentsDbHelper dbHelper;
-    private SQLiteDatabase db;
-    private MyCustomAdapter myAdapter;
 
     private OnFragmentInteractionListener mListener;
 
@@ -32,6 +28,9 @@ public class CalendarFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Context mContext;
+        SQLiteDatabase db;
+        AssignmentsDbHelper dbHelper;
+        RecyclerView myRecyclerView;
         mContext = this.getActivity();
         View view = inflater.inflate(R.layout.fragment_calendar, container, false);
         myRecyclerView = view.findViewById(R.id.recyclerView);
@@ -50,7 +49,7 @@ public class CalendarFragment extends Fragment {
                     null,                //  group the rows
                     null,                // filter by row groups
                     null);             // The sort order
-
+        MyCustomAdapter myAdapter;
         myAdapter = new MyCustomAdapter(mContext, c);
         myRecyclerView.setAdapter(myAdapter);
         myRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));

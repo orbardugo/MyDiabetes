@@ -33,11 +33,11 @@ public class MyCustomAdapter extends RecyclerView.Adapter<MyCustomAdapter.MyView
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView rowGluc;
-        TextView rowIns;
-        TextView rowCarbs;
-        TextView rowDate;
-        RelativeLayout layout;
+        private TextView rowGluc;
+        private TextView rowIns;
+        private TextView rowCarbs;
+        private TextView rowDate;
+        private RelativeLayout layout;
 
         MyViewHolder(View view) {
             super(view);

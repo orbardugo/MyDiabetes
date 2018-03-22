@@ -33,13 +33,13 @@ import com.google.android.gms.location.LocationServices;
 public class SubmitFragment extends Fragment implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener, LocationListener, View.OnClickListener {
 
-    TextView headtxt;
-    View view;
+    private TextView headtxt;
+    private View view;
     private String name;
-    String phoneNum;
-    GoogleApiClient mGoogleApiClient;
+    private String phoneNum;
+    private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
-    Location mCurrentLocation;
+    private Location mCurrentLocation;
 
 
     @SuppressLint("ResourceAsColor")

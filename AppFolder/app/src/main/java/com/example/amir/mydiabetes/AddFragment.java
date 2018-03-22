@@ -27,11 +27,11 @@ public class AddFragment extends Fragment implements View.OnClickListener{
 
     private Context mContext;
     private View view;
-    AssignmentsDbHelper dbHelper;
+    private AssignmentsDbHelper dbHelper;
     private SQLiteDatabase db;
     private EditText inputGluc , inputIns , inputCarbs;
-    ImageButton imgCarbs,imgInsulin;
-    SharedPreferences prefs;
+    private ImageButton imgCarbs,imgInsulin;
+    private SharedPreferences prefs;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

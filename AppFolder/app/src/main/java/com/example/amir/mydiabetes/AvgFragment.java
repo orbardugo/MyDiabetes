@@ -27,14 +27,14 @@ import java.util.Date;
  */
 public class AvgFragment extends Fragment implements View.OnTouchListener,View.OnClickListener {
 
-    TextView txtRange;
-    TextView txtAvg;
+    private TextView txtRange;
+    private TextView txtAvg;
     private AddFragment.OnFragmentInteractionListener mListener;
     private int sum;
-    int count;
-    int avg;
+    private int count;
+    private int avg;
     private int range;
-    Cursor c;
+    private Cursor c;
 
 
 
