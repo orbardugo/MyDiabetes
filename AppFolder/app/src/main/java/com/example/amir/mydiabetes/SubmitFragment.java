@@ -39,7 +39,7 @@ public class SubmitFragment extends Fragment implements GoogleApiClient.Connecti
     private String phoneNum;
     private GoogleApiClient mGoogleApiClient;
     private Location mCurrentLocation;
-    
+
     @SuppressLint("ResourceAsColor")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
