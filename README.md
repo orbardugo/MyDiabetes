@@ -1,5 +1,5 @@
 # myDiabetes-app
-
+<img src="http://i66.tinypic.com/2rwt9hx.png" height="300" width="500">
 The application is intended for diabetics to record blood sugar measurements. 
 Contains the following options:
   * Recording glucose (sugar, carbohydrate, insulin).
